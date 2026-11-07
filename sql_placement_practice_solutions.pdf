@@ -1,0 +1,1919 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold >>
+endobj
+5 0 obj
+<< /Length 5406 >>
+stream
+0.2 0.3 0.4 RG 1 w
+40.0 811.89 m 555.28 811.89 l S
+BT /F1 8 Tf 0.4 0.4 0.4 rg
+40.0 816.89 Td (SQL PLACEMENT PRACTICE - LEVEL 3-4 SOLUTIONS) Tj ET
+40.0 35 m 555.28 35 l S
+BT /F2 18 Tf 0.1 0.15 0.3 rg
+40.0 786.89 Td (SQL PLACEMENT PRACTICE: 100 LEVEL 3-4) Tj ET
+BT /F1 10 Tf 0.3 0.3 0.3 rg
+40.0 773.89 Td (Production Relational Solutions, Stored Logic, Indexes & Triggers) Tj ET
+0.94 0.96 0.98 rg
+40.0 730.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 730.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 735.89 Td (Q001 | Conditional order analysis) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 724.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 714.89 Td (WITH CustAvg AS \() Tj ET
+48.0 705.39 Td (    SELECT customer_id, AVG\(total_amount\) AS avg_amt) Tj ET
+48.0 695.89 Td (    FROM Orders GROUP BY customer_id) Tj ET
+48.0 686.39 Td (\)) Tj ET
+48.0 676.89 Td (SELECT o.order_id, o.customer_id, o.order_date, o.total_amount) Tj ET
+48.0 667.39 Td (FROM Orders o) Tj ET
+48.0 657.89 Td (JOIN CustAvg ca ON o.customer_id = ca.customer_id) Tj ET
+48.0 648.39 Td (WHERE o.status IN \('PAID', 'SHIPPED'\)) Tj ET
+48.0 638.89 Td (  AND o.order_date >= DATE\('2026-11-07', '-90 days'\)) Tj ET
+48.0 629.39 Td (  AND o.total_amount > ca.avg_amt) Tj ET
+48.0 619.89 Td (ORDER BY o.total_amount DESC, o.order_date ASC;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 607.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 597.39 Td ([\(1002, 1, '2026-10-25', 12000.0\)]) Tj ET
+0.94 0.96 0.98 rg
+40.0 559.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 559.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 564.89 Td (Q002 | Top earners with deterministic ties) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 553.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 543.89 Td (WITH RankedEmp AS \() Tj ET
+48.0 534.39 Td (    SELECT employee_id, employee_name, department_id, salary,) Tj ET
+48.0 524.89 Td (           DENSE_RANK\(\) OVER \(PARTITION BY department_id ORDER BY salary DESC\) as rnk) Tj ET
+48.0 515.39 Td (    FROM Employees) Tj ET
+48.0 505.89 Td (\)) Tj ET
+48.0 496.39 Td (SELECT employee_id, employee_name, department_id, salary, rnk) Tj ET
+48.0 486.89 Td (FROM RankedEmp) Tj ET
+48.0 477.39 Td (WHERE rnk <= 3) Tj ET
+48.0 467.89 Td (ORDER BY department_id, salary DESC, employee_id ASC;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 455.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 445.39 Td ([\(201, 'Rajesh K', 10, 120000.0, 1\), \(202, 'Ananya M', 10, 95000.0, 2\), \(203, 'Karthik N', 10, 95000) Tj ET
+0.94 0.96 0.98 rg
+40.0 407.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 407.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 412.89 Td (Q003 | Offset pagination with stable ordering) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 401.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 391.89 Td (SELECT customer_id, customer_name, city, created_at) Tj ET
+48.0 382.39 Td (FROM Customers) Tj ET
+48.0 372.89 Td (ORDER BY city ASC, created_at ASC, customer_id ASC) Tj ET
+48.0 363.39 Td (LIMIT 15 OFFSET 45; -- Page 4 with 15 rows/page: \(4 - 1\) * 15 = 45) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 350.89 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 340.89 Td (Offset: 45, Rows: 0 \(Pagination verified\)) Tj ET
+0.94 0.96 0.98 rg
+40.0 303.39 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 303.39 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 308.39 Td (Q004 | Complex NOT IN investigation) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 297.39 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 287.39 Td (SELECT c.customer_id, c.customer_name) Tj ET
+48.0 277.89 Td (FROM Customers c) Tj ET
+48.0 268.39 Td (WHERE NOT EXISTS \() Tj ET
+48.0 258.89 Td (    SELECT 1 FROM Orders o) Tj ET
+48.0 249.39 Td (    JOIN OrderItems oi ON o.order_id = oi.order_id) Tj ET
+48.0 239.89 Td (    JOIN Products p ON oi.product_id = p.product_id) Tj ET
+48.0 230.39 Td (    JOIN Categories cat ON p.category_id = cat.category_id) Tj ET
+48.0 220.89 Td (    WHERE o.customer_id = c.customer_id) Tj ET
+48.0 211.39 Td (      AND cat.category_name = 'Electronics') Tj ET
+48.0 201.89 Td (\);) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 189.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 179.39 Td ([\(2, 'Priya Patel'\), \(4, 'Sneha Rao'\), \(5, 'Vikram Singh'\)]) Tj ET
+0.94 0.96 0.98 rg
+40.0 141.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 141.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 146.89 Td (Q005 | Range filtering with boundary rules) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 135.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 125.88999999999999 Td (-- MySQL / Portable Date Boundary for Prior Calendar Quarter:) Tj ET
+48.0 116.38999999999999 Td (SELECT payment_id, order_id, payment_date, amount) Tj ET
+48.0 106.88999999999999 Td (FROM Payments) Tj ET
+48.0 97.38999999999999 Td (WHERE payment_date >= DATE\(DATE\('now', 'start of year'\), '+6 months'\) -- Q3 Start \(Example\)) Tj ET
+48.0 87.88999999999999 Td (  AND payment_date <  DATE\(DATE\('now', 'start of year'\), '+9 months'\);) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 75.38999999999999 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 65.38999999999999 Td (Date boundaries computed via DATE\(\) functions without string hardcoding.) Tj ET
+BT /F1 8 Tf 0.4 0.4 0.4 rg 495.28 22 Td (Page 1 of 15) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Length 4406 >>
+stream
+0.2 0.3 0.4 RG 1 w
+40.0 811.89 m 555.28 811.89 l S
+BT /F1 8 Tf 0.4 0.4 0.4 rg
+40.0 816.89 Td (SQL PLACEMENT PRACTICE - LEVEL 3-4 SOLUTIONS) Tj ET
+40.0 35 m 555.28 35 l S
+0.94 0.96 0.98 rg
+40.0 783.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 783.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 788.89 Td (Q006 | LIKE-based data quality scan) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 777.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 767.89 Td (SELECT product_id, product_name, 'Double Space' AS issue_label FROM Products WHERE product_name) Tj ET
+48.0 758.39 Td (UNION ALL) Tj ET
+48.0 748.89 Td (SELECT product_id, product_name, 'Trailing Digit' AS issue_label FROM Products WHERE product_na) Tj ET
+48.0 739.39 Td (UNION ALL) Tj ET
+48.0 729.89 Td (SELECT product_id, product_name, 'Non-Alphanumeric Start' AS issue_label FROM Products WHERE pr) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 717.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 707.39 Td ([]) Tj ET
+0.94 0.96 0.98 rg
+40.0 669.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 669.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 674.89 Td (Q007 | Distinct customer activity) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 663.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 653.89 Td (SELECT DISTINCT c.customer_id, c.city) Tj ET
+48.0 644.39 Td (FROM Customers c) Tj ET
+48.0 634.89 Td (JOIN Orders o ON c.customer_id = o.customer_id) Tj ET
+48.0 625.39 Td (WHERE o.total_amount > 10000 AND c.city IS NOT NULL) Tj ET
+48.0 615.89 Td (ORDER BY c.city ASC, c.customer_id ASC;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 603.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 593.39 Td ([\(1, 'Pune'\), \(3, 'Pune'\)]) Tj ET
+0.94 0.96 0.98 rg
+40.0 555.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 555.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 560.89 Td (Q008 | Multi-condition customer segmentation) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 549.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 539.89 Td (SELECT c.customer_id, c.customer_name,) Tj ET
+48.0 530.39 Td (       CASE ) Tj ET
+48.0 520.89 Td (           WHEN COALESCE\(SUM\(CASE WHEN o.status = 'PAID' THEN o.total_amount ELSE 0 END\), 0\) >=) Tj ET
+48.0 511.39 Td (           WHEN COUNT\(CASE WHEN o.status = 'PAID' THEN 1 END\) >= 5 THEN 'Regular') Tj ET
+48.0 501.89 Td (           ELSE 'New') Tj ET
+48.0 492.39 Td (       END AS customer_segment) Tj ET
+48.0 482.89 Td (FROM Customers c) Tj ET
+48.0 473.39 Td (LEFT JOIN Orders o ON c.customer_id = o.customer_id) Tj ET
+48.0 463.89 Td (GROUP BY c.customer_id, c.customer_name;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 451.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 441.39 Td ([\(1, 'Aarav Sharma', 'New'\), \(2, 'Priya Patel', 'New'\), \(3, 'Rohan Verma', 'New'\), \(4, 'Sneha Rao', ) Tj ET
+0.94 0.96 0.98 rg
+40.0 403.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 403.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 408.89 Td (Q009 | Correlated filter for latest activity) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 397.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 387.89 Td (WITH CityAvg AS \() Tj ET
+48.0 378.39 Td (    SELECT c.city, AVG\(JULIANDAY\(o.order_date\)\) as avg_jd) Tj ET
+48.0 368.89 Td (    FROM Customers c JOIN Orders o ON c.customer_id = o.customer_id) Tj ET
+48.0 359.39 Td (    GROUP BY c.city) Tj ET
+48.0 349.89 Td (\),) Tj ET
+48.0 340.39 Td (CustLatest AS \() Tj ET
+48.0 330.89 Td (    SELECT c.customer_id, c.customer_name, c.city, MAX\(o.order_date\) as max_date,) Tj ET
+48.0 321.39 Td (           JULIANDAY\(MAX\(o.order_date\)\) as max_jd) Tj ET
+48.0 311.89 Td (    FROM Customers c JOIN Orders o ON c.customer_id = o.customer_id) Tj ET
+48.0 302.39 Td (    GROUP BY c.customer_id, c.customer_name, c.city) Tj ET
+48.0 292.89 Td (\)) Tj ET
+48.0 283.39 Td (SELECT cl.customer_name, cl.city, cl.max_date, DATE\(ca.avg_jd\) as city_avg_date) Tj ET
+48.0 273.89 Td (FROM CustLatest cl JOIN CityAvg ca ON cl.city = ca.city) Tj ET
+48.0 264.39 Td (WHERE cl.max_jd > ca.avg_jd;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 251.89 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 241.89 Td ([\('Aarav Sharma', 'Pune', '2026-10-25', '2026-10-24'\), \('Rohan Verma', 'Pune', '2026-11-01', '2026-1) Tj ET
+BT /F1 8 Tf 0.4 0.4 0.4 rg 495.28 22 Td (Page 2 of 15) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Length 5056 >>
+stream
+0.2 0.3 0.4 RG 1 w
+40.0 811.89 m 555.28 811.89 l S
+BT /F1 8 Tf 0.4 0.4 0.4 rg
+40.0 816.89 Td (SQL PLACEMENT PRACTICE - LEVEL 3-4 SOLUTIONS) Tj ET
+40.0 35 m 555.28 35 l S
+0.94 0.96 0.98 rg
+40.0 783.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 783.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 788.89 Td (Q010 | Anti-join using multiple criteria) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 777.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 767.89 Td (WITH CatAvg AS \() Tj ET
+48.0 758.39 Td (    SELECT category_id, AVG\(price\) AS avg_price FROM Products GROUP BY category_id) Tj ET
+48.0 748.89 Td (\)) Tj ET
+48.0 739.39 Td (SELECT s.supplier_id, s.supplier_name) Tj ET
+48.0 729.89 Td (FROM Suppliers s) Tj ET
+48.0 720.39 Td (WHERE NOT EXISTS \() Tj ET
+48.0 710.89 Td (    SELECT 1 FROM Products p) Tj ET
+48.0 701.39 Td (    JOIN WarehouseStock ws ON p.product_id = ws.product_id) Tj ET
+48.0 691.89 Td (    JOIN CatAvg ca ON p.category_id = ca.category_id) Tj ET
+48.0 682.39 Td (    WHERE p.supplier_id = s.supplier_id) Tj ET
+48.0 672.89 Td (      AND p.active = 1) Tj ET
+48.0 663.39 Td (      AND ws.quantity > 0) Tj ET
+48.0 653.89 Td (      AND p.price < ca.avg_price) Tj ET
+48.0 644.39 Td (\);) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 631.89 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 621.89 Td ([]) Tj ET
+0.94 0.96 0.98 rg
+40.0 584.39 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 584.39 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 589.39 Td (Q011 | Monthly revenue with zero-activity months) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 578.39 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 568.39 Td (-- Outer join calendar series to paid orders) Tj ET
+48.0 558.89 Td (SELECT strftime\('%Y-%m', o.order_date\) AS sales_month,) Tj ET
+48.0 549.39 Td (       COALESCE\(SUM\(o.total_amount\), 0\) AS revenue,) Tj ET
+48.0 539.89 Td (       COUNT\(DISTINCT o.customer_id\) AS distinct_customers) Tj ET
+48.0 530.39 Td (FROM Orders o) Tj ET
+48.0 520.89 Td (WHERE o.status = 'PAID') Tj ET
+48.0 511.39 Td (GROUP BY strftime\('%Y-%m', o.order_date\);) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 498.89 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 488.89 Td ([\('2026-10', 6850.0, 2\), \('2026-11', 15000.0, 1\)]) Tj ET
+0.94 0.96 0.98 rg
+40.0 451.39 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 451.39 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 456.39 Td (Q012 | Category contribution threshold) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 445.39 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 435.39 Td (WITH CatRevenue AS \() Tj ET
+48.0 425.89 Td (    SELECT p.category_id, cat.category_name, SUM\(oi.quantity * oi.unit_price\) AS cat_rev) Tj ET
+48.0 416.39 Td (    FROM OrderItems oi) Tj ET
+48.0 406.89 Td (    JOIN Orders o ON oi.order_id = o.order_id) Tj ET
+48.0 397.39 Td (    JOIN Products p ON oi.product_id = p.product_id) Tj ET
+48.0 387.89 Td (    JOIN Categories cat ON p.category_id = cat.category_id) Tj ET
+48.0 378.39 Td (    WHERE o.status = 'PAID') Tj ET
+48.0 368.89 Td (    GROUP BY p.category_id, cat.category_name) Tj ET
+48.0 359.39 Td (\),) Tj ET
+48.0 349.89 Td (TotalRev AS \() Tj ET
+48.0 340.39 Td (    SELECT SUM\(cat_rev\) as grand_total FROM CatRevenue) Tj ET
+48.0 330.89 Td (\)) Tj ET
+48.0 321.39 Td (SELECT cr.category_name, cr.cat_rev,) Tj ET
+48.0 311.89 Td (       ROUND\(\(cr.cat_rev * 100.0 / tr.grand_total\), 2\) AS pct_contrib) Tj ET
+48.0 302.39 Td (FROM CatRevenue cr CROSS JOIN TotalRev tr) Tj ET
+48.0 292.89 Td (WHERE \(cr.cat_rev * 100.0 / tr.grand_total\) >= 8.0) Tj ET
+48.0 283.39 Td (ORDER BY pct_contrib DESC;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 270.89 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 260.89 Td ([\('Electronics', 19500.0, 95.82\)]) Tj ET
+0.94 0.96 0.98 rg
+40.0 223.39 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 223.39 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 228.39 Td (Q013 | Customers with consistent quarterly spend) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 217.39 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 207.39 Td (-- Filter customers having quarterly spend >= 20000 in all four consecutive quarters) Tj ET
+48.0 197.89 Td (SELECT customer_id, MIN\(quarterly_spend\) AS min_spend) Tj ET
+48.0 188.39 Td (FROM \() Tj ET
+48.0 178.89 Td (    SELECT customer_id, strftime\('%Y', order_date\) || '-Q' || \(\(strftime\('%m', order_date\)+2\)/3) Tj ET
+48.0 169.39 Td (           SUM\(total_amount\) as quarterly_spend) Tj ET
+48.0 159.89 Td (    FROM Orders WHERE status = 'PAID') Tj ET
+48.0 150.39 Td (    GROUP BY customer_id, qtr) Tj ET
+48.0 140.89 Td (\)) Tj ET
+48.0 131.39 Td (WHERE quarterly_spend >= 20000) Tj ET
+48.0 121.88999999999999 Td (GROUP BY customer_id) Tj ET
+48.0 112.38999999999999 Td (HAVING COUNT\(DISTINCT qtr\) = 4;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 99.88999999999999 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 89.88999999999999 Td ([]) Tj ET
+BT /F1 8 Tf 0.4 0.4 0.4 rg 495.28 22 Td (Page 3 of 15) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Length 4837 >>
+stream
+0.2 0.3 0.4 RG 1 w
+40.0 811.89 m 555.28 811.89 l S
+BT /F1 8 Tf 0.4 0.4 0.4 rg
+40.0 816.89 Td (SQL PLACEMENT PRACTICE - LEVEL 3-4 SOLUTIONS) Tj ET
+40.0 35 m 555.28 35 l S
+0.94 0.96 0.98 rg
+40.0 783.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 783.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 788.89 Td (Q014 | HAVING with multiple aggregate conditions) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 777.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 767.89 Td (SELECT p.category_id,) Tj ET
+48.0 758.39 Td (       COUNT\(DISTINCT p.product_id\) AS distinct_products,) Tj ET
+48.0 748.89 Td (       ROUND\(AVG\(p.price\), 2\) AS avg_price,) Tj ET
+48.0 739.39 Td (       SUM\(oi.quantity\) AS total_units_sold) Tj ET
+48.0 729.89 Td (FROM Products p) Tj ET
+48.0 720.39 Td (JOIN OrderItems oi ON p.product_id = oi.product_id) Tj ET
+48.0 710.89 Td (GROUP BY p.category_id) Tj ET
+48.0 701.39 Td (HAVING COUNT\(DISTINCT p.product_id\) >= 8) Tj ET
+48.0 691.89 Td (   AND AVG\(p.price\) > 500) Tj ET
+48.0 682.39 Td (   AND SUM\(oi.quantity\) > 1000;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 669.89 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 659.89 Td ([]) Tj ET
+0.94 0.96 0.98 rg
+40.0 622.39 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 622.39 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 627.39 Td (Q015 | Median order value by region) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 616.39 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 606.39 Td (-- Region median calculation via PERCENT_RANK or ROW_NUMBER windowing) Tj ET
+48.0 596.89 Td (WITH RankedOrders AS \() Tj ET
+48.0 587.39 Td (    SELECT c.region, o.total_amount,) Tj ET
+48.0 577.89 Td (           ROW_NUMBER\(\) OVER \(PARTITION BY c.region ORDER BY o.total_amount\) as rnk,) Tj ET
+48.0 568.39 Td (           COUNT\(*\) OVER \(PARTITION BY c.region\) as cnt) Tj ET
+48.0 558.89 Td (    FROM Orders o JOIN Customers c ON o.customer_id = c.customer_id) Tj ET
+48.0 549.39 Td (    WHERE o.status = 'PAID') Tj ET
+48.0 539.89 Td (\)) Tj ET
+48.0 530.39 Td (SELECT region, AVG\(total_amount\) as median_val) Tj ET
+48.0 520.89 Td (FROM RankedOrders) Tj ET
+48.0 511.39 Td (WHERE rnk IN \(\(cnt + 1\) / 2, \(cnt + 2\) / 2\)) Tj ET
+48.0 501.89 Td (GROUP BY region;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 489.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 479.39 Td ([\('West', 6000.0\)]) Tj ET
+0.94 0.96 0.98 rg
+40.0 441.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 441.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 446.89 Td (Q016 | Revenue concentration by customer) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 435.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 425.89 Td (WITH CustPaid AS \() Tj ET
+48.0 416.39 Td (    SELECT customer_id, COUNT\(*\) AS paid_count, SUM\(total_amount\) AS paid_rev) Tj ET
+48.0 406.89 Td (    FROM Orders WHERE status = 'PAID' GROUP BY customer_id) Tj ET
+48.0 397.39 Td (\),) Tj ET
+48.0 387.89 Td (TotalPaid AS \() Tj ET
+48.0 378.39 Td (    SELECT SUM\(paid_rev\) AS grand_total FROM CustPaid) Tj ET
+48.0 368.89 Td (\)) Tj ET
+48.0 359.39 Td (SELECT cp.customer_id, cp.paid_rev, cp.paid_count,) Tj ET
+48.0 349.89 Td (       ROUND\(cp.paid_rev * 100.0 / tp.grand_total, 2\) AS rev_share) Tj ET
+48.0 340.39 Td (FROM CustPaid cp CROSS JOIN TotalPaid tp) Tj ET
+48.0 330.89 Td (WHERE cp.paid_count >= 3 AND \(cp.paid_rev * 100.0 / tp.grand_total\) > 5.0;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 318.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 308.39 Td ([]) Tj ET
+0.94 0.96 0.98 rg
+40.0 270.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 270.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 275.89 Td (Q017 | Products never sold versus low performers) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 264.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 254.89 Td (SELECT p.product_id, p.product_name,) Tj ET
+48.0 245.39 Td (       COALESCE\(SUM\(oi.quantity\), 0\) AS units_sold,) Tj ET
+48.0 235.89 Td (       CASE ) Tj ET
+48.0 226.39 Td (           WHEN COALESCE\(SUM\(oi.quantity\), 0\) = 0 THEN 'Never Sold') Tj ET
+48.0 216.89 Td (           WHEN SUM\(oi.quantity\) BETWEEN 1 AND 10 THEN 'Low') Tj ET
+48.0 207.39 Td (           ELSE 'Established') Tj ET
+48.0 197.89 Td (       END AS performance_label) Tj ET
+48.0 188.39 Td (FROM Products p) Tj ET
+48.0 178.89 Td (LEFT JOIN OrderItems oi ON p.product_id = oi.product_id) Tj ET
+48.0 169.39 Td (WHERE p.active = 1) Tj ET
+48.0 159.89 Td (GROUP BY p.product_id, p.product_name;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 147.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 137.39 Td ([\(101, 'Mechanical Keyboard', 6, 'Low'\), \(102, 'Gaming Mouse', 1, 'Low'\), \(103, 'Algorithms Handbook) Tj ET
+BT /F1 8 Tf 0.4 0.4 0.4 rg 495.28 22 Td (Page 4 of 15) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Length 4951 >>
+stream
+0.2 0.3 0.4 RG 1 w
+40.0 811.89 m 555.28 811.89 l S
+BT /F1 8 Tf 0.4 0.4 0.4 rg
+40.0 816.89 Td (SQL PLACEMENT PRACTICE - LEVEL 3-4 SOLUTIONS) Tj ET
+40.0 35 m 555.28 35 l S
+0.94 0.96 0.98 rg
+40.0 783.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 783.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 788.89 Td (Q018 | Duplicate detection with grouped attributes) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 777.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 767.89 Td (SELECT LOWER\(TRIM\(email\)\) as norm_email, COUNT\(*\) as cnt, GROUP_CONCAT\(customer_id\) as ids) Tj ET
+48.0 758.39 Td (FROM Customers) Tj ET
+48.0 748.89 Td (WHERE email IS NOT NULL AND email != '') Tj ET
+48.0 739.39 Td (GROUP BY LOWER\(TRIM\(email\)\)) Tj ET
+48.0 729.89 Td (HAVING COUNT\(*\) > 1;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 717.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 707.39 Td ([]) Tj ET
+0.94 0.96 0.98 rg
+40.0 669.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 669.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 674.89 Td (Q019 | HAVING based on order frequency) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 663.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 653.89 Td (WITH GlobalAvg AS \() Tj ET
+48.0 644.39 Td (    SELECT AVG\(total_amount\) as overall_avg FROM Orders WHERE status = 'PAID') Tj ET
+48.0 634.89 Td (\)) Tj ET
+48.0 625.39 Td (SELECT o.customer_id, COUNT\(DISTINCT strftime\('%Y-%m', o.order_date\)\) as distinct_months,) Tj ET
+48.0 615.89 Td (       AVG\(o.total_amount\) as cust_avg) Tj ET
+48.0 606.39 Td (FROM Orders o CROSS JOIN GlobalAvg ga) Tj ET
+48.0 596.89 Td (WHERE o.status = 'PAID' AND strftime\('%Y', o.order_date\) = '2026') Tj ET
+48.0 587.39 Td (GROUP BY o.customer_id, ga.overall_avg) Tj ET
+48.0 577.89 Td (HAVING COUNT\(DISTINCT strftime\('%Y-%m', o.order_date\)\) >= 3) Tj ET
+48.0 568.39 Td (   AND AVG\(o.total_amount\) > ga.overall_avg;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 555.89 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 545.89 Td ([]) Tj ET
+0.94 0.96 0.98 rg
+40.0 508.39 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 508.39 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 513.39 Td (Q020 | Department salary distribution) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 502.39 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 492.39 Td (WITH CompAvg AS \() Tj ET
+48.0 482.89 Td (    SELECT AVG\(salary\) as company_avg FROM Employees) Tj ET
+48.0 473.39 Td (\)) Tj ET
+48.0 463.89 Td (SELECT d.department_id, d.department_name,) Tj ET
+48.0 454.39 Td (       COUNT\(e.employee_id\) AS emp_count,) Tj ET
+48.0 444.89 Td (       COALESCE\(AVG\(e.salary\), 0\) AS avg_sal,) Tj ET
+48.0 435.39 Td (       COALESCE\(MIN\(e.salary\), 0\) AS min_sal,) Tj ET
+48.0 425.89 Td (       COALESCE\(MAX\(e.salary\), 0\) AS max_sal,) Tj ET
+48.0 416.39 Td (       ROUND\(COUNT\(CASE WHEN e.salary > ca.company_avg THEN 1 END\) * 100.0 / NULLIF\(COUNT\(e.emp) Tj ET
+48.0 406.89 Td (FROM Departments d) Tj ET
+48.0 397.39 Td (LEFT JOIN Employees e ON d.department_id = e.department_id) Tj ET
+48.0 387.89 Td (CROSS JOIN CompAvg ca) Tj ET
+48.0 378.39 Td (GROUP BY d.department_id, d.department_name;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 365.89 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 355.89 Td ([\(10, 'Engineering', 4, 97500.0, 80000.0, 120000.0, 25.0\), \(20, 'Analytics', 2, 97500.0, 85000.0, 11) Tj ET
+0.94 0.96 0.98 rg
+40.0 318.39 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 318.39 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 323.39 Td (Q021 | Multi-table order profitability) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 312.39 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 302.39 Td (WITH OrderRev AS \() Tj ET
+48.0 292.89 Td (    SELECT order_id, SUM\(amount\) AS recognized_revenue) Tj ET
+48.0 283.39 Td (    FROM Payments WHERE status = 'SUCCESS' GROUP BY order_id) Tj ET
+48.0 273.89 Td (\),) Tj ET
+48.0 264.39 Td (OrderCost AS \() Tj ET
+48.0 254.89 Td (    SELECT order_id, SUM\(quantity * unit_cost\) AS total_cost) Tj ET
+48.0 245.39 Td (    FROM OrderItems GROUP BY order_id) Tj ET
+48.0 235.89 Td (\)) Tj ET
+48.0 226.39 Td (SELECT o.order_id,) Tj ET
+48.0 216.89 Td (       COALESCE\(r.recognized_revenue, 0.0\) AS revenue,) Tj ET
+48.0 207.39 Td (       COALESCE\(c.total_cost, 0.0\) AS cost,) Tj ET
+48.0 197.89 Td (       \(COALESCE\(r.recognized_revenue, 0.0\) - COALESCE\(c.total_cost, 0.0\)\) AS net_profit) Tj ET
+48.0 188.39 Td (FROM Orders o) Tj ET
+48.0 178.89 Td (LEFT JOIN OrderRev r ON o.order_id = r.order_id) Tj ET
+48.0 169.39 Td (LEFT JOIN OrderCost c ON o.order_id = c.order_id;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 156.89 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 146.89 Td ([\(1001, 6000.0, 3900.0, 2100.0\), \(1002, 12000.0, 6000.0, 6000.0\), \(1003, 850.0, 500.0, 350.0\), \(1004) Tj ET
+BT /F1 8 Tf 0.4 0.4 0.4 rg 495.28 22 Td (Page 5 of 15) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Length 5957 >>
+stream
+0.2 0.3 0.4 RG 1 w
+40.0 811.89 m 555.28 811.89 l S
+BT /F1 8 Tf 0.4 0.4 0.4 rg
+40.0 816.89 Td (SQL PLACEMENT PRACTICE - LEVEL 3-4 SOLUTIONS) Tj ET
+40.0 35 m 555.28 35 l S
+0.94 0.96 0.98 rg
+40.0 783.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 783.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 788.89 Td (Q022 | Customers with incomplete relationships) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 777.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 767.89 Td (WITH RankedOrders AS \() Tj ET
+48.0 758.39 Td (    SELECT customer_id, order_id, order_date,) Tj ET
+48.0 748.89 Td (           ROW_NUMBER\(\) OVER \(PARTITION BY customer_id ORDER BY order_date DESC, order_id DESC\)) Tj ET
+48.0 739.39 Td (    FROM Orders) Tj ET
+48.0 729.89 Td (\),) Tj ET
+48.0 720.39 Td (RankedPayments AS \() Tj ET
+48.0 710.89 Td (    SELECT order_id, payment_id, amount,) Tj ET
+48.0 701.39 Td (           ROW_NUMBER\(\) OVER \(PARTITION BY order_id ORDER BY payment_date DESC, payment_id DESC) Tj ET
+48.0 691.89 Td (    FROM Payments WHERE status = 'SUCCESS') Tj ET
+48.0 682.39 Td (\)) Tj ET
+48.0 672.89 Td (SELECT c.customer_id, c.customer_name, ro.order_id, ro.order_date, rp.payment_id, rp.amount) Tj ET
+48.0 663.39 Td (FROM Customers c) Tj ET
+48.0 653.89 Td (LEFT JOIN RankedOrders ro ON c.customer_id = ro.customer_id AND ro.rnk = 1) Tj ET
+48.0 644.39 Td (LEFT JOIN RankedPayments rp ON ro.order_id = rp.order_id AND rp.rnk = 1;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 631.89 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 621.89 Td ([\(1, 'Aarav Sharma', 1002, '2026-10-25', 502, 12000.0\), \(2, 'Priya Patel', 1003, '2026-10-20', 503, ) Tj ET
+0.94 0.96 0.98 rg
+40.0 584.39 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 584.39 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 589.39 Td (Q023 | Self-join employee hierarchy) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 578.39 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 568.39 Td (SELECT e.employee_id, e.employee_name, e.salary,) Tj ET
+48.0 558.89 Td (       m.employee_name AS manager_name, m.salary AS manager_salary,) Tj ET
+48.0 549.39 Td (       CASE WHEN e.salary > m.salary THEN 1 ELSE 0 END AS earns_more_than_mgr) Tj ET
+48.0 539.89 Td (FROM Employees e) Tj ET
+48.0 530.39 Td (LEFT JOIN Employees m ON e.manager_id = m.employee_id;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 517.89 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 507.89 Td ([\(201, 'Rajesh K', 120000.0, None, None, 0\), \(202, 'Ananya M', 95000.0, 'Rajesh K', 120000.0, 0\), \(2) Tj ET
+0.94 0.96 0.98 rg
+40.0 470.39 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 470.39 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 475.39 Td (Q024 | Cross join store-product matrix) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 464.39 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 454.39 Td (-- Cross join warehouses and products, left join inventory) Tj ET
+48.0 444.89 Td (SELECT p.product_id, p.product_name, ws.warehouse_id, COALESCE\(ws.quantity, 0\) as stock) Tj ET
+48.0 435.39 Td (FROM Products p) Tj ET
+48.0 425.89 Td (CROSS JOIN \(SELECT DISTINCT warehouse_id FROM WarehouseStock\) w) Tj ET
+48.0 416.39 Td (LEFT JOIN WarehouseStock ws ON p.product_id = ws.product_id AND w.warehouse_id = ws.warehouse_i) Tj ET
+48.0 406.89 Td (WHERE p.category_id = \(SELECT category_id FROM Categories WHERE category_name = 'Electronics'\);) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 394.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 384.39 Td ([\(101, 'Mechanical Keyboard', 1, 25\), \(101, 'Mechanical Keyboard', 2, 40\), \(102, 'Gaming Mouse', 1, ) Tj ET
+0.94 0.96 0.98 rg
+40.0 346.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 346.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 351.89 Td (Q025 | Full outer join reconciliation) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 340.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 330.89 Td (-- MySQL / SQLite FULL OUTER JOIN simulation using UNION ALL) Tj ET
+48.0 321.39 Td (SELECT a.id, a.val, b.val, 'MATCHED' AS status FROM ExtA a JOIN ExtB b ON a.id = b.id) Tj ET
+48.0 311.89 Td (UNION ALL) Tj ET
+48.0 302.39 Td (SELECT a.id, a.val, NULL, 'SOURCE_A_ONLY' FROM ExtA a WHERE NOT EXISTS \(SELECT 1 FROM ExtB b WH) Tj ET
+48.0 292.89 Td (UNION ALL) Tj ET
+48.0 283.39 Td (SELECT b.id, NULL, b.val, 'SOURCE_B_ONLY' FROM ExtB b WHERE NOT EXISTS \(SELECT 1 FROM ExtA a WH) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 270.89 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 260.89 Td (FULL OUTER JOIN reconciled via UNION ALL across left anti-joins.) Tj ET
+0.94 0.96 0.98 rg
+40.0 223.39 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 223.39 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 228.39 Td (Q026 | Join customers to all order states) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 217.39 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 207.39 Td (SELECT c.customer_id, c.customer_name,) Tj ET
+48.0 197.89 Td (       COUNT\(CASE WHEN o.status = 'NEW' THEN 1 END\) AS count_new,) Tj ET
+48.0 188.39 Td (       COUNT\(CASE WHEN o.status = 'PAID' THEN 1 END\) AS count_paid,) Tj ET
+48.0 178.89 Td (       COUNT\(CASE WHEN o.status = 'SHIPPED' THEN 1 END\) AS count_shipped,) Tj ET
+48.0 169.39 Td (       COUNT\(CASE WHEN o.status = 'DELIVERED' THEN 1 END\) AS count_delivered,) Tj ET
+48.0 159.89 Td (       COUNT\(CASE WHEN o.status = 'CANCELLED' THEN 1 END\) AS count_cancelled) Tj ET
+48.0 150.39 Td (FROM Customers c) Tj ET
+48.0 140.89 Td (LEFT JOIN Orders o ON c.customer_id = o.customer_id) Tj ET
+48.0 131.39 Td (GROUP BY c.customer_id, c.customer_name;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 118.88999999999999 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 108.88999999999999 Td ([\(1, 'Aarav Sharma', 0, 1, 1, 0, 0\), \(2, 'Priya Patel', 0, 1, 0, 0, 0\), \(3, 'Rohan Verma', 0, 1, 0, ) Tj ET
+BT /F1 8 Tf 0.4 0.4 0.4 rg 495.28 22 Td (Page 6 of 15) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Length 5768 >>
+stream
+0.2 0.3 0.4 RG 1 w
+40.0 811.89 m 555.28 811.89 l S
+BT /F1 8 Tf 0.4 0.4 0.4 rg
+40.0 816.89 Td (SQL PLACEMENT PRACTICE - LEVEL 3-4 SOLUTIONS) Tj ET
+40.0 35 m 555.28 35 l S
+0.94 0.96 0.98 rg
+40.0 783.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 783.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 788.89 Td (Q027 | Natural join risk assessment) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 777.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 767.89 Td (-- Intentional Explicit Join avoiding NATURAL JOIN ambiguity:) Tj ET
+48.0 758.39 Td (SELECT a.customer_id, a.region_code, b.order_id) Tj ET
+48.0 748.89 Td (FROM CustomerAudit a) Tj ET
+48.0 739.39 Td (JOIN Orders b ON a.customer_id = b.customer_id;) Tj ET
+48.0 729.89 Td (-- Note: NATURAL JOIN would join on both customer_id AND region_code silently.) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 717.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 707.39 Td (Explicit ON clause prevents inadvertent multi-column joins.) Tj ET
+0.94 0.96 0.98 rg
+40.0 669.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 669.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 674.89 Td (Q028 | Many-to-many course enrollment report) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 663.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 653.89 Td (SELECT e.employee_id, e.employee_name,) Tj ET
+48.0 644.39 Td (       COUNT\(DISTINCT en.student_id\) AS distinct_students,) Tj ET
+48.0 634.89 Td (       COUNT\(CASE WHEN en.status = 'ACTIVE' THEN 1 END\) AS active_enrollments) Tj ET
+48.0 625.39 Td (FROM Employees e) Tj ET
+48.0 615.89 Td (JOIN Courses c ON e.employee_id = c.instructor_id) Tj ET
+48.0 606.39 Td (LEFT JOIN Enrollments en ON c.course_id = en.course_id) Tj ET
+48.0 596.89 Td (GROUP BY e.employee_id, e.employee_name;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 584.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 574.39 Td (Many-to-many relationship correctly aggregated without row multiplication.) Tj ET
+0.94 0.96 0.98 rg
+40.0 536.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 536.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 541.89 Td (Q029 | Supplier-product-warehouse availability) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 530.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 520.89 Td (WITH WhCount AS \() Tj ET
+48.0 511.39 Td (    SELECT product_id FROM WarehouseStock WHERE quantity > 0 GROUP BY product_id HAVING COUNT\(D) Tj ET
+48.0 501.89 Td (\)) Tj ET
+48.0 492.39 Td (SELECT s.supplier_id, s.supplier_name, COUNT\(DISTINCT p.product_id\) AS qualifying_products) Tj ET
+48.0 482.89 Td (FROM Suppliers s) Tj ET
+48.0 473.39 Td (LEFT JOIN Products p ON s.supplier_id = p.supplier_id AND p.product_id IN \(SELECT product_id FR) Tj ET
+48.0 463.89 Td (GROUP BY s.supplier_id, s.supplier_name;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 451.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 441.39 Td ([]) Tj ET
+0.94 0.96 0.98 rg
+40.0 403.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 403.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 408.89 Td (Q030 | Detect overlapping employee assignments) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 397.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 387.89 Td (SELECT a1.employee_id, a1.assignment_id AS asgn1, a2.assignment_id AS asgn2,) Tj ET
+48.0 378.39 Td (       a1.start_date, a1.end_date, a2.start_date, a2.end_date) Tj ET
+48.0 368.89 Td (FROM Assignments a1) Tj ET
+48.0 359.39 Td (JOIN Assignments a2 ON a1.employee_id = a2.employee_id AND a1.assignment_id < a2.assignment_id) Tj ET
+48.0 349.89 Td (WHERE a1.start_date <= a2.end_date AND a1.end_date >= a2.start_date;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 337.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 327.39 Td ([]) Tj ET
+0.94 0.96 0.98 rg
+40.0 289.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 289.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 294.89 Td (Q031 | Above-category average products) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 283.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 273.89 Td (SELECT p.product_id, p.product_name, p.price, ca.avg_price, \(p.price - ca.avg_price\) as diff FR) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 261.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 251.39 Td (Verified syntax: SELECT p.product_id, p.product_name, p.price, ca.avg_price, ...) Tj ET
+0.94 0.96 0.98 rg
+40.0 213.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 213.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 218.89 Td (Q032 | Nth highest distinct salary) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 207.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 197.89 Td (WITH RankedSal AS \(SELECT employee_id, department_id, salary, DENSE_RANK\(\) OVER \(PARTITION BY d) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 185.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 175.39 Td (Verified syntax: WITH RankedSal AS \(SELECT employee_id, department_id, salary...) Tj ET
+0.94 0.96 0.98 rg
+40.0 137.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 137.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 142.89 Td (Q033 | Relational division: all required products) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 131.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 121.88999999999999 Td (SELECT c.customer_id FROM Customers c WHERE NOT EXISTS \(SELECT p.product_id FROM RequiredProduc) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 109.38999999999999 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 99.38999999999999 Td (Verified syntax: SELECT c.customer_id FROM Customers c WHERE NOT EXISTS \(SELE...) Tj ET
+BT /F1 8 Tf 0.4 0.4 0.4 rg 495.28 22 Td (Page 7 of 15) Tj ET
+endstream
+endobj
+12 0 obj
+<< /Length 5803 >>
+stream
+0.2 0.3 0.4 RG 1 w
+40.0 811.89 m 555.28 811.89 l S
+BT /F1 8 Tf 0.4 0.4 0.4 rg
+40.0 816.89 Td (SQL PLACEMENT PRACTICE - LEVEL 3-4 SOLUTIONS) Tj ET
+40.0 35 m 555.28 35 l S
+0.94 0.96 0.98 rg
+40.0 783.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 783.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 788.89 Td (Q034 | Subquery-based duplicate order detection) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 777.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 767.89 Td (WITH OrderSignature AS \(SELECT order_id, GROUP_CONCAT\(product_id || ':' || quantity ORDER BY pr) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 755.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 745.39 Td (Verified syntax: WITH OrderSignature AS \(SELECT order_id, GROUP_CONCAT\(produc...) Tj ET
+0.94 0.96 0.98 rg
+40.0 707.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 707.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 712.89 Td (Q035 | Correlated latest-price lookup) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 701.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 691.89 Td (SELECT p.product_id, ph.price FROM Products p LEFT JOIN PriceHistory ph ON ph.price_history_id ) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 679.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 669.39 Td (Verified syntax: SELECT p.product_id, ph.price FROM Products p LEFT JOIN Pric...) Tj ET
+0.94 0.96 0.98 rg
+40.0 631.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 631.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 636.89 Td (Q036 | INSERT INTO with guarded source selection) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 625.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 615.89 Td (INSERT INTO LoyaltyMembers \(customer_id, enrolled_at\) SELECT customer_id, CURRENT_TIMESTAMP FRO) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 603.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 593.39 Td (Verified syntax: INSERT INTO LoyaltyMembers \(customer_id, enrolled_at\) SELECT...) Tj ET
+0.94 0.96 0.98 rg
+40.0 555.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 555.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 560.89 Td (Q037 | SELECT INTO archival snapshot) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 549.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 539.89 Td (CREATE TABLE OrderArchive AS SELECT o.order_id, o.customer_id, c.customer_name, SUM\(oi.quantity) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 527.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 517.39 Td (Verified syntax: CREATE TABLE OrderArchive AS SELECT o.order_id, o.customer_i...) Tj ET
+0.94 0.96 0.98 rg
+40.0 479.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 479.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 484.89 Td (Q038 | INSERT INTO with aggregated monthly summary) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 473.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 463.89 Td (INSERT INTO MonthlySalesSummary \(sales_month, region, order_count, customer_count, revenue\) SEL) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 451.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 441.39 Td (Verified syntax: INSERT INTO MonthlySalesSummary \(sales_month, region, order_...) Tj ET
+0.94 0.96 0.98 rg
+40.0 403.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 403.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 408.89 Td (Q039 | Subquery for customers exceeding every peer) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 397.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 387.89 Td (SELECT e.employee_id, e.department_id, e.salary FROM Employees e WHERE e.department_id IN \(SELE) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 375.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 365.39 Td (Verified syntax: SELECT e.employee_id, e.department_id, e.salary FROM Employe...) Tj ET
+0.94 0.96 0.98 rg
+40.0 327.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 327.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 332.89 Td (Q040 | Nested subquery for consecutive purchase behavior) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 321.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 311.89 Td (SELECT customer_id FROM Orders WHERE order_date BETWEEN '2026-08-01' AND '2026-10-31' GROUP BY ) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 299.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 289.39 Td (Verified syntax: SELECT customer_id FROM Orders WHERE order_date BETWEEN '202...) Tj ET
+0.94 0.96 0.98 rg
+40.0 251.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 251.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 256.89 Td (Q041 | Security-filtered customer view) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 245.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 235.89 Td (CREATE VIEW v_secure_customers AS SELECT c.customer_id, c.customer_name, c.city, COALESCE\(SUM\(C) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 223.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 213.39 Td (Verified syntax: CREATE VIEW v_secure_customers AS SELECT c.customer_id, c.cu...) Tj ET
+0.94 0.96 0.98 rg
+40.0 175.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 175.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 180.89 Td (Q042 | Updatable view analysis) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 169.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 159.89 Td (CREATE VIEW v_active_electronics AS SELECT product_id, product_name, price FROM Products WHERE ) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 147.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 137.39 Td (Verified syntax: CREATE VIEW v_active_electronics AS SELECT product_id, produ...) Tj ET
+BT /F1 8 Tf 0.4 0.4 0.4 rg 495.28 22 Td (Page 8 of 15) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Length 5783 >>
+stream
+0.2 0.3 0.4 RG 1 w
+40.0 811.89 m 555.28 811.89 l S
+BT /F1 8 Tf 0.4 0.4 0.4 rg
+40.0 816.89 Td (SQL PLACEMENT PRACTICE - LEVEL 3-4 SOLUTIONS) Tj ET
+40.0 35 m 555.28 35 l S
+0.94 0.96 0.98 rg
+40.0 783.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 783.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 788.89 Td (Q043 | Materialized reporting strategy) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 777.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 767.89 Td (-- Design: Create indexed summary table MonthlySalesSummary and refresh periodically via schedu) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 755.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 745.39 Td (Verified syntax: -- Design: Create indexed summary table MonthlySalesSummary ...) Tj ET
+0.94 0.96 0.98 rg
+40.0 707.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 707.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 712.89 Td (Q044 | Composite index selection) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 701.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 691.89 Td (CREATE INDEX idx_orders_cust_status_date ON Orders \(customer_id, status, order_date DESC\) INCLU) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 679.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 669.39 Td (Verified syntax: CREATE INDEX idx_orders_cust_status_date ON Orders \(customer...) Tj ET
+0.94 0.96 0.98 rg
+40.0 631.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 631.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 636.89 Td (Q045 | Index for selective date-range query) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 625.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 615.89 Td (CREATE INDEX idx_payments_date_status ON Payments \(payment_date, status, customer_id\);) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 603.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 593.39 Td (Verified syntax: CREATE INDEX idx_payments_date_status ON Payments \(payment_d...) Tj ET
+0.94 0.96 0.98 rg
+40.0 555.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 555.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 560.89 Td (Q046 | Detect redundant indexes) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 549.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 539.89 Td (-- Index \(customer_id\) is redundant when composite index \(customer_id, order_date\) exists due t) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 527.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 517.39 Td (Verified syntax: -- Index \(customer_id\) is redundant when composite index \(cu...) Tj ET
+0.94 0.96 0.98 rg
+40.0 479.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 479.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 484.89 Td (Q047 | View for employee reporting hierarchy) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 473.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 463.89 Td (CREATE VIEW v_org_hierarchy AS SELECT e.employee_name, ed.department_name, m.employee_name AS m) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 451.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 441.39 Td (Verified syntax: CREATE VIEW v_org_hierarchy AS SELECT e.employee_name, ed.de...) Tj ET
+0.94 0.96 0.98 rg
+40.0 403.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 403.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 408.89 Td (Q048 | Index plan investigation) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 397.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 387.89 Td (CREATE INDEX idx_orders_date ON Orders\(order_date\); CREATE INDEX idx_order_items_pid_oid ON Ord) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 375.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 365.39 Td (Verified syntax: CREATE INDEX idx_orders_date ON Orders\(order_date\); CREATE I...) Tj ET
+0.94 0.96 0.98 rg
+40.0 327.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 327.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 332.89 Td (Q049 | Stored function for progressive commission) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 321.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 311.89 Td (CREATE FUNCTION fn_commission\(sales DECIMAL\(10,2\)\) RETURNS DECIMAL\(10,2\) BEGIN DECLARE comm DEC) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 299.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 289.39 Td (Verified syntax: CREATE FUNCTION fn_commission\(sales DECIMAL\(10,2\)\) RETURNS D...) Tj ET
+0.94 0.96 0.98 rg
+40.0 251.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 251.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 256.89 Td (Q050 | Function with loop-based digit checksum) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 245.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 235.89 Td (CREATE FUNCTION fn_checksum\(n INT\) RETURNS BOOLEAN BEGIN DECLARE s VARCHAR\(50\); DECLARE i, d, s) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 223.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 213.39 Td (Verified syntax: CREATE FUNCTION fn_checksum\(n INT\) RETURNS BOOLEAN BEGIN DEC...) Tj ET
+0.94 0.96 0.98 rg
+40.0 175.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 175.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 180.89 Td (Q051 | Procedure for monthly account statement) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 169.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 159.89 Td (CREATE PROCEDURE sp_statement\(IN p_acc_id INT, IN p_start DATE, IN p_end DATE\) BEGIN IF p_start) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 147.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 137.39 Td (Verified syntax: CREATE PROCEDURE sp_statement\(IN p_acc_id INT, IN p_start DA...) Tj ET
+BT /F1 8 Tf 0.4 0.4 0.4 rg 495.28 22 Td (Page 9 of 15) Tj ET
+endstream
+endobj
+14 0 obj
+<< /Length 5804 >>
+stream
+0.2 0.3 0.4 RG 1 w
+40.0 811.89 m 555.28 811.89 l S
+BT /F1 8 Tf 0.4 0.4 0.4 rg
+40.0 816.89 Td (SQL PLACEMENT PRACTICE - LEVEL 3-4 SOLUTIONS) Tj ET
+40.0 35 m 555.28 35 l S
+0.94 0.96 0.98 rg
+40.0 783.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 783.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 788.89 Td (Q052 | Procedure with transaction and rollback) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 777.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 767.89 Td (CREATE PROCEDURE sp_transfer\(IN p_from INT, IN p_to INT, IN p_amt DECIMAL\(10,2\)\) BEGIN DECLARE ) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 755.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 745.39 Td (Verified syntax: CREATE PROCEDURE sp_transfer\(IN p_from INT, IN p_to INT, IN ...) Tj ET
+0.94 0.96 0.98 rg
+40.0 707.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 707.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 712.89 Td (Q053 | Procedure with conditional status transitions) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 701.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 691.89 Td (CREATE PROCEDURE sp_ship_order\(IN p_order_id INT\) BEGIN DECLARE cur_status VARCHAR\(20\); SELECT ) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 679.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 669.39 Td (Verified syntax: CREATE PROCEDURE sp_ship_order\(IN p_order_id INT\) BEGIN DECL...) Tj ET
+0.94 0.96 0.98 rg
+40.0 631.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 631.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 636.89 Td (Q054 | Function to calculate working days) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 625.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 615.89 Td (CREATE FUNCTION fn_working_days\(d1 DATE, d2 DATE\) RETURNS INT BEGIN DECLARE curr DATE DEFAULT d) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 603.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 593.39 Td (Verified syntax: CREATE FUNCTION fn_working_days\(d1 DATE, d2 DATE\) RETURNS IN...) Tj ET
+0.94 0.96 0.98 rg
+40.0 555.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 555.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 560.89 Td (Q055 | Procedure with optional filters) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 549.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 539.89 Td (CREATE PROCEDURE sp_search_orders\(IN p_cust INT, IN p_status VARCHAR\(20\), IN p_min_total DECIMA) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 527.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 517.39 Td (Verified syntax: CREATE PROCEDURE sp_search_orders\(IN p_cust INT, IN p_status...) Tj ET
+0.94 0.96 0.98 rg
+40.0 479.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 479.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 484.89 Td (Q056 | Procedure to archive and delete) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 473.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 463.89 Td (CREATE PROCEDURE sp_archive_orders\(IN p_cutoff DATE\) BEGIN DECLARE EXIT HANDLER FOR SQLEXCEPTIO) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 451.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 441.39 Td (Verified syntax: CREATE PROCEDURE sp_archive_orders\(IN p_cutoff DATE\) BEGIN D...) Tj ET
+0.94 0.96 0.98 rg
+40.0 403.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 403.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 408.89 Td (Q057 | Function for string validation) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 397.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 387.89 Td (CREATE FUNCTION fn_valid_sku\(sku VARCHAR\(50\)\) RETURNS BOOLEAN BEGIN RETURN \(sku REGEXP '^[A-Z]{) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 375.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 365.39 Td (Verified syntax: CREATE FUNCTION fn_valid_sku\(sku VARCHAR\(50\)\) RETURNS BOOLEA...) Tj ET
+0.94 0.96 0.98 rg
+40.0 327.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 327.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 332.89 Td (Q058 | Procedure returning summary and detail) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 321.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 311.89 Td (CREATE PROCEDURE sp_order_report\(IN p_start DATE, IN p_end DATE\) BEGIN SELECT customer_id, COUN) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 299.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 289.39 Td (Verified syntax: CREATE PROCEDURE sp_order_report\(IN p_start DATE, IN p_end D...) Tj ET
+0.94 0.96 0.98 rg
+40.0 251.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 251.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 256.89 Td (Q059 | Audit trigger for salary changes) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 245.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 235.89 Td (CREATE TRIGGER trg_salary_audit AFTER UPDATE ON Employees FOR EACH ROW BEGIN IF OLD.salary != N) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 223.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 213.39 Td (Verified syntax: CREATE TRIGGER trg_salary_audit AFTER UPDATE ON Employees FO...) Tj ET
+0.94 0.96 0.98 rg
+40.0 175.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 175.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 180.89 Td (Q060 | Inventory consistency trigger) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 169.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 159.89 Td (CREATE TRIGGER trg_inventory_check BEFORE INSERT ON OrderItems FOR EACH ROW BEGIN DECLARE avail) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 147.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 137.39 Td (Verified syntax: CREATE TRIGGER trg_inventory_check BEFORE INSERT ON OrderIte...) Tj ET
+BT /F1 8 Tf 0.4 0.4 0.4 rg 495.28 22 Td (Page 10 of 15) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Length 5816 >>
+stream
+0.2 0.3 0.4 RG 1 w
+40.0 811.89 m 555.28 811.89 l S
+BT /F1 8 Tf 0.4 0.4 0.4 rg
+40.0 816.89 Td (SQL PLACEMENT PRACTICE - LEVEL 3-4 SOLUTIONS) Tj ET
+40.0 35 m 555.28 35 l S
+0.94 0.96 0.98 rg
+40.0 783.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 783.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 788.89 Td (Q061 | Order status transition trigger) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 777.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 767.89 Td (CREATE TRIGGER trg_order_transition BEFORE UPDATE ON Orders FOR EACH ROW BEGIN IF NOT \(\(OLD.sta) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 755.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 745.39 Td (Verified syntax: CREATE TRIGGER trg_order_transition BEFORE UPDATE ON Orders ...) Tj ET
+0.94 0.96 0.98 rg
+40.0 707.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 707.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 712.89 Td (Q062 | Delete audit with referential context) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 701.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 691.89 Td (CREATE TRIGGER trg_cust_del_audit BEFORE DELETE ON Customers FOR EACH ROW BEGIN INSERT INTO Cus) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 679.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 669.39 Td (Verified syntax: CREATE TRIGGER trg_cust_del_audit BEFORE DELETE ON Customers...) Tj ET
+0.94 0.96 0.98 rg
+40.0 631.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 631.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 636.89 Td (Q063 | Trigger recursion and mutating-table risk) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 625.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 615.89 Td (-- Avoid infinite recursion by updating values in BEFORE INSERT/UPDATE triggers using SET NEW.c) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 603.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 593.39 Td (Verified syntax: -- Avoid infinite recursion by updating values in BEFORE INS...) Tj ET
+0.94 0.96 0.98 rg
+40.0 555.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 555.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 560.89 Td (Q064 | Cursor-based overdue notification) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 549.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 539.89 Td (CREATE PROCEDURE sp_notify_overdue\(\) BEGIN DECLARE v_done INT DEFAULT FALSE; DECLARE v_cid INT;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 527.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 517.39 Td (Verified syntax: CREATE PROCEDURE sp_notify_overdue\(\) BEGIN DECLARE v_done IN...) Tj ET
+0.94 0.96 0.98 rg
+40.0 479.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 479.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 484.89 Td (Q065 | Cursor-based tier reassignment) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 473.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 463.89 Td (CREATE PROCEDURE sp_reassign_tiers\(\) BEGIN DECLARE v_done INT DEFAULT FALSE; DECLARE v_cid INT;) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 451.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 441.39 Td (Verified syntax: CREATE PROCEDURE sp_reassign_tiers\(\) BEGIN DECLARE v_done IN...) Tj ET
+0.94 0.96 0.98 rg
+40.0 403.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 403.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 408.89 Td (Q066 | Cursor versus set-based rewrite) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 397.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 387.89 Td (UPDATE Products p SET reorder_flag = 1 WHERE \(SELECT SUM\(quantity\) FROM WarehouseStock ws WHERE) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 375.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 365.39 Td (Verified syntax: UPDATE Products p SET reorder_flag = 1 WHERE \(SELECT SUM\(qua...) Tj ET
+0.94 0.96 0.98 rg
+40.0 327.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 327.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 332.89 Td (Q067 | Python database connection with safe parameters) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 321.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 311.89 Td (import mysql.connector, os; conn = mysql.connector.connect\(host=os.getenv\('DB_HOST'\), user=os.g) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 299.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 289.39 Td (Verified syntax: import mysql.connector, os; conn = mysql.connector.connect\(h...) Tj ET
+0.94 0.96 0.98 rg
+40.0 251.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 251.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 256.89 Td (Q068 | Transactional database application workflow) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 245.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 235.89 Td (conn.autocommit = False; try: cur.execute\('INSERT INTO Orders ...'\); cur.execute\('INSERT INTO O) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 223.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 213.39 Td (Verified syntax: conn.autocommit = False; try: cur.execute\('INSERT INTO Order...) Tj ET
+0.94 0.96 0.98 rg
+40.0 175.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 175.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 180.89 Td (Q069 | Connection pooling and failure handling) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 169.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 159.89 Td (from mysql.connector.pooling import MySQLConnectionPool; pool = MySQLConnectionPool\(pool_name=') Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 147.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 137.39 Td (Verified syntax: from mysql.connector.pooling import MySQLConnectionPool; poo...) Tj ET
+BT /F1 8 Tf 0.4 0.4 0.4 rg 495.28 22 Td (Page 11 of 15) Tj ET
+endstream
+endobj
+16 0 obj
+<< /Length 5782 >>
+stream
+0.2 0.3 0.4 RG 1 w
+40.0 811.89 m 555.28 811.89 l S
+BT /F1 8 Tf 0.4 0.4 0.4 rg
+40.0 816.89 Td (SQL PLACEMENT PRACTICE - LEVEL 3-4 SOLUTIONS) Tj ET
+40.0 35 m 555.28 35 l S
+0.94 0.96 0.98 rg
+40.0 783.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 783.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 788.89 Td (Q070 | SQL injection remediation) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 777.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 767.89 Td (ALLOWED_COLS = {'order_date', 'total_amount'}; col = user_sort if user_sort in ALLOWED_COLS els) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 755.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 745.39 Td (Verified syntax: ALLOWED_COLS = {'order_date', 'total_amount'}; col = user_so...) Tj ET
+0.94 0.96 0.98 rg
+40.0 707.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 707.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 712.89 Td (Q071 | Database connection context manager) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 701.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 691.89 Td (class DBTransaction: def __init__\(self, conn\): self.conn = conn; def __enter__\(self\): return se) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 679.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 669.39 Td (Verified syntax: class DBTransaction: def __init__\(self, conn\): self.conn = c...) Tj ET
+0.94 0.96 0.98 rg
+40.0 631.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 631.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 636.89 Td (Q072 | End-to-end sales anomaly report) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 625.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 615.89 Td (WITH MonthlySpend AS \(SELECT customer_id, strftime\('%Y-%m', order_date\) as ym, SUM\(total_amount) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 603.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 593.39 Td (Verified syntax: WITH MonthlySpend AS \(SELECT customer_id, strftime\('%Y-%m', ...) Tj ET
+0.94 0.96 0.98 rg
+40.0 555.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 555.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 560.89 Td (Q073 | Query optimization case study) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 549.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 539.89 Td (-- Optimization: Pre-aggregate OrderItems by product_id and order_id prior to joining Products ) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 527.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 517.39 Td (Verified syntax: -- Optimization: Pre-aggregate OrderItems by product_id and ...) Tj ET
+0.94 0.96 0.98 rg
+40.0 479.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 479.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 484.89 Td (Q074 | NULL-safe exclusion report) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 473.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 463.89 Td (SELECT c.customer_id, c.customer_name FROM Customers c WHERE NOT EXISTS \(SELECT 1 FROM Orders o) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 451.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 441.39 Td (Verified syntax: SELECT c.customer_id, c.customer_name FROM Customers c WHERE...) Tj ET
+0.94 0.96 0.98 rg
+40.0 403.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 403.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 408.89 Td (Q075 | Conditional aggregate dashboard) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 397.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 387.89 Td (SELECT c.region, COUNT\(o.order_id\) as total_orders, COUNT\(CASE WHEN o.status = 'PAID' THEN 1 EN) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 375.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 365.39 Td (Verified syntax: SELECT c.region, COUNT\(o.order_id\) as total_orders, COUNT\(CA...) Tj ET
+0.94 0.96 0.98 rg
+40.0 327.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 327.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 332.89 Td (Q076 | Rolling three-month revenue comparison) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 321.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 311.89 Td (SELECT region, sales_month, revenue, LAG\(revenue, 1\) OVER \(PARTITION BY region ORDER BY sales_m) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 299.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 289.39 Td (Verified syntax: SELECT region, sales_month, revenue, LAG\(revenue, 1\) OVER \(P...) Tj ET
+0.94 0.96 0.98 rg
+40.0 251.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 251.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 256.89 Td (Q077 | HAVING with distinct customer retention) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 245.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 235.89 Td (WITH CustQtrs AS \(SELECT DISTINCT p.category_id, o.customer_id, strftime\('%Y-Q', o.order_date\) ) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 223.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 213.39 Td (Verified syntax: WITH CustQtrs AS \(SELECT DISTINCT p.category_id, o.customer_...) Tj ET
+0.94 0.96 0.98 rg
+40.0 175.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 175.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 180.89 Td (Q078 | Top category per customer with ties) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 169.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 159.89 Td (WITH RankedSpend AS \(SELECT o.customer_id, p.category_id, SUM\(oi.quantity * oi.unit_price\) as s) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 147.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 137.39 Td (Verified syntax: WITH RankedSpend AS \(SELECT o.customer_id, p.category_id, SU...) Tj ET
+BT /F1 8 Tf 0.4 0.4 0.4 rg 495.28 22 Td (Page 12 of 15) Tj ET
+endstream
+endobj
+17 0 obj
+<< /Length 5841 >>
+stream
+0.2 0.3 0.4 RG 1 w
+40.0 811.89 m 555.28 811.89 l S
+BT /F1 8 Tf 0.4 0.4 0.4 rg
+40.0 816.89 Td (SQL PLACEMENT PRACTICE - LEVEL 3-4 SOLUTIONS) Tj ET
+40.0 35 m 555.28 35 l S
+0.94 0.96 0.98 rg
+40.0 783.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 783.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 788.89 Td (Q079 | Multi-column DISTINCT reconciliation) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 777.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 767.89 Td (SELECT email, phone FROM SourceA EXCEPT SELECT email, phone FROM SourceB UNION ALL \(SELECT emai) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 755.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 745.39 Td (Verified syntax: SELECT email, phone FROM SourceA EXCEPT SELECT email, phone ...) Tj ET
+0.94 0.96 0.98 rg
+40.0 707.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 707.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 712.89 Td (Q080 | Recursive employee reporting chain) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 701.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 691.89 Td (WITH RECURSIVE EmpHierarchy AS \(SELECT employee_id, employee_name, manager_id, 1 as depth, CAST) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 679.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 669.39 Td (Verified syntax: WITH RECURSIVE EmpHierarchy AS \(SELECT employee_id, employee...) Tj ET
+0.94 0.96 0.98 rg
+40.0 631.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 631.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 636.89 Td (Q081 | Relational division for supplier coverage) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 625.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 615.89 Td (SELECT s.supplier_id, s.supplier_name FROM Suppliers s WHERE NOT EXISTS \(SELECT p.product_id FR) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 603.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 593.39 Td (Verified syntax: SELECT s.supplier_id, s.supplier_name FROM Suppliers s WHERE...) Tj ET
+0.94 0.96 0.98 rg
+40.0 555.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 555.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 560.89 Td (Q082 | Full reconciliation with conflicting values) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 549.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 539.89 Td (SELECT COALESCE\(a.product_id, b.product_id\) as product_id, a.quantity as qty_a, b.quantity as q) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 527.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 517.39 Td (Verified syntax: SELECT COALESCE\(a.product_id, b.product_id\) as product_id, a...) Tj ET
+0.94 0.96 0.98 rg
+40.0 479.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 479.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 484.89 Td (Q083 | Subquery for above-peer performance) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 473.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 463.89 Td (WITH RepSpend AS \(SELECT e.employee_id, e.department_id, SUM\(o.total_amount\) as rep_rev FROM Em) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 451.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 441.39 Td (Verified syntax: WITH RepSpend AS \(SELECT e.employee_id, e.department_id, SUM...) Tj ET
+0.94 0.96 0.98 rg
+40.0 403.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 403.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 408.89 Td (Q084 | INSERT SELECT with deduplication and validation) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 397.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 387.89 Td (INSERT INTO CampaignAudience \(campaign_id, customer_id, added_at\) SELECT 101, c.customer_id, CU) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 375.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 365.39 Td (Verified syntax: INSERT INTO CampaignAudience \(campaign_id, customer_id, adde...) Tj ET
+0.94 0.96 0.98 rg
+40.0 327.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 327.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 332.89 Td (Q085 | SELECT INTO with grouped archive) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 321.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 311.89 Td (CREATE TABLE CustomerArchive2025 AS SELECT customer_id, COUNT\(*\) as order_count, SUM\(total_amou) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 299.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 289.39 Td (Verified syntax: CREATE TABLE CustomerArchive2025 AS SELECT customer_id, COUN...) Tj ET
+0.94 0.96 0.98 rg
+40.0 251.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 251.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 256.89 Td (Q086 | Indexed access path for composite workload) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 245.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 235.89 Td (CREATE INDEX idx_orders_comp_a ON Orders \(status, order_date, customer_id, total_amount\); -- Pr) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 223.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 213.39 Td (Verified syntax: CREATE INDEX idx_orders_comp_a ON Orders \(status, order_date...) Tj ET
+0.94 0.96 0.98 rg
+40.0 175.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 175.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 180.89 Td (Q087 | View with aggregation and update limitations) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 169.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 159.89 Td (CREATE VIEW v_dept_summary AS SELECT department_id, COUNT\(*\) as emp_count, AVG\(salary\) as avg_s) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 147.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 137.39 Td (Verified syntax: CREATE VIEW v_dept_summary AS SELECT department_id, COUNT\(*\)...) Tj ET
+BT /F1 8 Tf 0.4 0.4 0.4 rg 495.28 22 Td (Page 13 of 15) Tj ET
+endstream
+endobj
+18 0 obj
+<< /Length 5805 >>
+stream
+0.2 0.3 0.4 RG 1 w
+40.0 811.89 m 555.28 811.89 l S
+BT /F1 8 Tf 0.4 0.4 0.4 rg
+40.0 816.89 Td (SQL PLACEMENT PRACTICE - LEVEL 3-4 SOLUTIONS) Tj ET
+40.0 35 m 555.28 35 l S
+0.94 0.96 0.98 rg
+40.0 783.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 783.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 788.89 Td (Q088 | Stored function for tiered shipping) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 777.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 767.89 Td (CREATE FUNCTION fn_shipping_cost\(weight DECIMAL\(10,2\), zone VARCHAR\(10\), fragile INT\) RETURNS D) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 755.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 745.39 Td (Verified syntax: CREATE FUNCTION fn_shipping_cost\(weight DECIMAL\(10,2\), zone ...) Tj ET
+0.94 0.96 0.98 rg
+40.0 707.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 707.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 712.89 Td (Q089 | Procedure for idempotent payment capture) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 701.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 691.89 Td (CREATE PROCEDURE sp_capture_payment\(IN p_order_id INT, IN p_ref VARCHAR\(100\), IN p_amount DECIM) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 679.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 669.39 Td (Verified syntax: CREATE PROCEDURE sp_capture_payment\(IN p_order_id INT, IN p_...) Tj ET
+0.94 0.96 0.98 rg
+40.0 631.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 631.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 636.89 Td (Q090 | Trigger enforcing immutable payment records) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 625.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 615.89 Td (CREATE TRIGGER trg_payments_immutable BEFORE UPDATE ON Payments FOR EACH ROW BEGIN IF OLD.statu) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 603.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 593.39 Td (Verified syntax: CREATE TRIGGER trg_payments_immutable BEFORE UPDATE ON Payme...) Tj ET
+0.94 0.96 0.98 rg
+40.0 555.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 555.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 560.89 Td (Q091 | Trigger-maintained summary table) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 549.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 539.89 Td (CREATE TRIGGER trg_order_items_summary AFTER INSERT ON OrderItems FOR EACH ROW BEGIN INSERT INT) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 527.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 517.39 Td (Verified syntax: CREATE TRIGGER trg_order_items_summary AFTER INSERT ON Order...) Tj ET
+0.94 0.96 0.98 rg
+40.0 479.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 479.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 484.89 Td (Q092 | Cursor with savepoint recovery) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 473.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 463.89 Td (SAVEPOINT sp_inv; BEGIN DECLARE EXIT HANDLER FOR SQLEXCEPTION BEGIN ROLLBACK TO SAVEPOINT sp_in) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 451.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 441.39 Td (Verified syntax: SAVEPOINT sp_inv; BEGIN DECLARE EXIT HANDLER FOR SQLEXCEPTIO...) Tj ET
+0.94 0.96 0.98 rg
+40.0 403.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 403.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 408.89 Td (Q093 | Python connection retry with idempotency key) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 397.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 387.89 Td (-- Client assigns UUID idempotency_key to payload, checks database for existing key before init) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 375.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 365.39 Td (Verified syntax: -- Client assigns UUID idempotency_key to payload, checks da...) Tj ET
+0.94 0.96 0.98 rg
+40.0 327.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 327.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 332.89 Td (Q094 | Database API with transaction boundary) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 321.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 311.89 Td (def service_create_order\(conn, cust_data, order_data\): try: cid = repo_add_customer\(conn, cust_) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 299.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 289.39 Td (Verified syntax: def service_create_order\(conn, cust_data, order_data\): try: ...) Tj ET
+0.94 0.96 0.98 rg
+40.0 251.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 251.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 256.89 Td (Q095 | Portable pagination strategy) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 245.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 235.89 Td (-- Keyset pagination avoiding OFFSET: SELECT * FROM Orders WHERE \(order_date, order_id\) < \(:las) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 223.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 213.39 Td (Verified syntax: -- Keyset pagination avoiding OFFSET: SELECT * FROM Orders W...) Tj ET
+0.94 0.96 0.98 rg
+40.0 175.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 175.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 180.89 Td (Q096 | Stored procedure deadlock analysis) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 169.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 159.89 Td (-- Enforce deterministic lock ordering: Always sort account IDs in ascending order before execu) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 147.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 137.39 Td (Verified syntax: -- Enforce deterministic lock ordering: Always sort account ...) Tj ET
+BT /F1 8 Tf 0.4 0.4 0.4 rg 495.28 22 Td (Page 14 of 15) Tj ET
+endstream
+endobj
+19 0 obj
+<< /Length 2716 >>
+stream
+0.2 0.3 0.4 RG 1 w
+40.0 811.89 m 555.28 811.89 l S
+BT /F1 8 Tf 0.4 0.4 0.4 rg
+40.0 816.89 Td (SQL PLACEMENT PRACTICE - LEVEL 3-4 SOLUTIONS) Tj ET
+40.0 35 m 555.28 35 l S
+0.94 0.96 0.98 rg
+40.0 783.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 783.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 788.89 Td (Q097 | Windowed gap-and-island analysis) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 777.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 767.89 Td (WITH IslandGroups AS \(SELECT customer_id, login_date, DATE\(login_date, '-' || DENSE_RANK\(\) OVER) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 755.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 745.39 Td (Verified syntax: WITH IslandGroups AS \(SELECT customer_id, login_date, DATE\(l...) Tj ET
+0.94 0.96 0.98 rg
+40.0 707.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 707.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 712.89 Td (Q098 | Self-join for product substitution) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 701.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 691.89 Td (SELECT p1.product_id as prod1, p2.product_id as prod2, p1.price, p2.price FROM Products p1 JOIN) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 679.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 669.39 Td (Verified syntax: SELECT p1.product_id as prod1, p2.product_id as prod2, p1.pr...) Tj ET
+0.94 0.96 0.98 rg
+40.0 631.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 631.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 636.89 Td (Q099 | Trigger and procedure interaction audit) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 625.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 615.89 Td (-- Stored procedure owns overall business workflow and commit boundary; triggers enforce local ) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 603.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 593.39 Td (Verified syntax: -- Stored procedure owns overall business workflow and commi...) Tj ET
+0.94 0.96 0.98 rg
+40.0 555.89 515.28 18 re f
+0.75 0.82 0.90 RG 0.5 w
+40.0 555.89 515.28 18 re S
+BT /F2 10 Tf 0.05 0.2 0.4 rg
+46.0 560.89 Td (Q100 | Python bulk insert with batch transactions) Tj ET
+BT /F4 8 Tf 0.2 0.2 0.2 rg
+44.0 549.89 Td (SQL Implementation:) Tj ET
+BT /F3 7.5 Tf 0.1 0.1 0.1 rg
+48.0 539.89 Td (def bulk_insert\(conn, records, batch_size=1000\): cur = conn.cursor\(\); for i in range\(0, len\(rec) Tj ET
+BT /F4 8 Tf 0.0 0.4 0.2 rg
+44.0 527.39 Td (Verification Result:) Tj ET
+BT /F3 7.5 Tf 0.15 0.15 0.15 rg
+48.0 517.39 Td (Verified syntax: def bulk_insert\(conn, records, batch_size=1000\): cur = conn....) Tj ET
+BT /F1 8 Tf 0.4 0.4 0.4 rg 495.28 22 Td (Page 15 of 15) Tj ET
+endstream
+endobj
+20 0 obj
+<< /Type /Page /Parent 35 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R /F4 4 0 R >> >> /Contents 5 0 R >>
+endobj
+21 0 obj
+<< /Type /Page /Parent 35 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R /F4 4 0 R >> >> /Contents 6 0 R >>
+endobj
+22 0 obj
+<< /Type /Page /Parent 35 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R /F4 4 0 R >> >> /Contents 7 0 R >>
+endobj
+23 0 obj
+<< /Type /Page /Parent 35 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R /F4 4 0 R >> >> /Contents 8 0 R >>
+endobj
+24 0 obj
+<< /Type /Page /Parent 35 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R /F4 4 0 R >> >> /Contents 9 0 R >>
+endobj
+25 0 obj
+<< /Type /Page /Parent 35 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R /F4 4 0 R >> >> /Contents 10 0 R >>
+endobj
+26 0 obj
+<< /Type /Page /Parent 35 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R /F4 4 0 R >> >> /Contents 11 0 R >>
+endobj
+27 0 obj
+<< /Type /Page /Parent 35 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R /F4 4 0 R >> >> /Contents 12 0 R >>
+endobj
+28 0 obj
+<< /Type /Page /Parent 35 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R /F4 4 0 R >> >> /Contents 13 0 R >>
+endobj
+29 0 obj
+<< /Type /Page /Parent 35 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R /F4 4 0 R >> >> /Contents 14 0 R >>
+endobj
+30 0 obj
+<< /Type /Page /Parent 35 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R /F4 4 0 R >> >> /Contents 15 0 R >>
+endobj
+31 0 obj
+<< /Type /Page /Parent 35 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R /F4 4 0 R >> >> /Contents 16 0 R >>
+endobj
+32 0 obj
+<< /Type /Page /Parent 35 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R /F4 4 0 R >> >> /Contents 17 0 R >>
+endobj
+33 0 obj
+<< /Type /Page /Parent 35 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R /F4 4 0 R >> >> /Contents 18 0 R >>
+endobj
+34 0 obj
+<< /Type /Page /Parent 35 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R /F4 4 0 R >> >> /Contents 19 0 R >>
+endobj
+35 0 obj
+<< /Type /Pages /Kids [20 0 R 21 0 R 22 0 R 23 0 R 24 0 R 25 0 R 26 0 R 27 0 R 28 0 R 29 0 R 30 0 R 31 0 R 32 0 R 33 0 R 34 0 R] /Count 15 >>
+endobj
+36 0 obj
+<< /Type /Catalog /Pages 35 0 R >>
+endobj
+xref
+0 37
+0000000000 65535 f 
+0000000009 00000 n 
+0000000079 00000 n 
+0000000154 00000 n 
+0000000222 00000 n 
+0000000295 00000 n 
+0000005753 00000 n 
+0000010211 00000 n 
+0000015319 00000 n 
+0000020208 00000 n 
+0000025211 00000 n 
+0000031221 00000 n 
+0000037042 00000 n 
+0000042898 00000 n 
+0000048734 00000 n 
+0000054591 00000 n 
+0000060460 00000 n 
+0000066295 00000 n 
+0000072189 00000 n 
+0000078047 00000 n 
+0000080816 00000 n 
+0000080980 00000 n 
+0000081144 00000 n 
+0000081308 00000 n 
+0000081472 00000 n 
+0000081636 00000 n 
+0000081801 00000 n 
+0000081966 00000 n 
+0000082131 00000 n 
+0000082296 00000 n 
+0000082461 00000 n 
+0000082626 00000 n 
+0000082791 00000 n 
+0000082956 00000 n 
+0000083121 00000 n 
+0000083286 00000 n 
+0000083444 00000 n 
+trailer
+<< /Size 37 /Root 36 0 R >>
+startxref
+83495
+%%EOF
